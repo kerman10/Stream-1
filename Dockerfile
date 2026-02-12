@@ -1,21 +1,16 @@
-FROM ubuntu:22.04
+FROM node:18-slim
 
-# Instalar dependencias
+# Instalar FFmpeg y dependencias para Chrome
 RUN apt-get update && apt-get install -y \
     ffmpeg \
-    nginx \
-    && rm -rf /var/lib/apt/lists/*
+    chromium \
+    fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
+    --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
-# Copiar archivos
 WORKDIR /app
-COPY stream.sh /app/
-COPY rickroll.mp4 /app/
+COPY . .
 
-# Dar permisos de ejecución al script
-RUN chmod +x /app/stream.sh
+# Instalar puppeteer
+RUN npm install puppeteer-stream
 
-# Exponer el puerto para el servidor web
-EXPOSE 8080
-
-# Ejecutar el script al iniciar el contenedor
-CMD ["/app/stream.sh"]
+CMD ["node", "index.js"]
