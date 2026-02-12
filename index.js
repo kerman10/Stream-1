@@ -8,7 +8,7 @@ async function startStream() {
     });
 
     const page = await browser.newPage();
-    await page.goto('https://TU-PAGINA-WEB.com'); // <--- CAMBIA ESTO
+    await page.goto('https://cuenta-atr-s-para-a-o-nuevo--ker.on.websim.com/'); // <--- CAMBIA ESTO
     await page.setViewport({ width: 1280, height: 720 });
 
     const stream = await puppeteer.getStream(page, { audio: true, video: true });
